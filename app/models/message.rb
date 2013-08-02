@@ -16,9 +16,22 @@ class Message < ActiveRecord::Base
   def deliver!(sending: nil, receiving: nil)
     self.sender = sending
     self.recipient = receiving
+
+    if self.body.class == 'NilClass'
+      if self.body.nil?
+        raise StandardError, "body cannot be nil" 
+      end
+    end
+
+    if self.body.class == 'String'
+      if self.body.empty? 
+        raise StandardError, "body cannot be empty" 
+      end
+    end
+
     self.save
     raise ArgumentError, "both sender and receiver must be specified" unless sending && receiving
-  
+    
   end
 
 end
