@@ -17,17 +17,7 @@ class Message < ActiveRecord::Base
     self.sender = sending
     self.recipient = receiving
 
-    if self.body.class == 'NilClass'
-      if self.body.nil?
-        raise StandardError, "body cannot be nil" 
-      end
-    end
-
-    if self.body.class == 'String'
-      if self.body.empty? 
-        raise StandardError, "body cannot be empty" 
-      end
-    end
+    raise StandardError, "body cannot be nil or empty" if self.body.nil? || self.body.empty? 
 
     self.save
     raise ArgumentError, "both sender and receiver must be specified" unless sending && receiving

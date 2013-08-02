@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Message do
   describe '.deliver!' do
-    let(:message) { Message.new(body: nil) }
+    let(:message) { Message.new(body: 'Hello World') }
     let(:sender)    { mock_model(User) }
     let(:recipient) { mock_model(User) }
 
@@ -43,7 +43,7 @@ describe Message do
     end
     context 'when the message body is nil or empty' do
       it 'should raise an error' do
-        expect {message.deliver! body }.to raise_error StandardError
+        expect {Message.new(body: nil).deliver!}.to raise_error StandardError
       end
     end
 
