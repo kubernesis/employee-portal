@@ -12,8 +12,12 @@ describe Message do
 
         expect(message.sender).to eq(sender)
       end
-      
-      it 'should set the recipient of the message'
+
+      it 'should set the recipient of the message' do
+        message.deliver! sending: sender, receiving: recipient
+
+        expect(message.recipient).to eq(recipient)
+      end
 
       it 'should persist the message to the database'
     end
